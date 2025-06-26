@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: coopercard-service
+    env: python
+    plan: free
+    startCommand: streamlit run main.py --server.port 8080
