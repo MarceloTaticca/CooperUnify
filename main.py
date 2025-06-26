@@ -43,13 +43,17 @@ def load_depara(path: str):
 
 
 def process_data(matera: pd.DataFrame, dock: pd.DataFrame):
-    depara = load_depara('Relatório Contás e Cartões (de para).xlsm')
+    # arquivo depara para relacionar CPF com Id Conta
+    depara = load_depara('Relatório Contas e Cartões (de para).xlsm')
     if depara is not None:
         dock = dock.merge(
             depara[['Id Conta', 'CPF', 'Nome', 'Status Conta', 'Data Cadastramento']],
             on='Id Conta',
             how='left'
         )
+    # Garantir que a coluna CPF existe apos o merge
+    if 'CPF' not in dock.columns:
+        raise KeyError("Coluna 'CPF' nao encontrada no arquivo Dock. Verifique o arquivo depara.")
 
     matera_sum = matera.groupby('CPF')['nVlrLanc'].sum().reset_index()
     matera_sum.rename(columns={'nVlrLanc': 'sum_nVlrLanc'}, inplace=True)
@@ -122,7 +126,7 @@ def to_excel(dfs):
         dfs['nao_se_matam_matera'].to_excel(writer, sheet_name='nao_se_matam_matera', index=False)
         dfs['summary_321_grouped'].to_excel(writer, sheet_name='summary_321_grouped', index=False)
     output.seek(0)
-    return output
+    return output.getvalue()
 
 
 st.title('CooperCard Micro Serviço')
