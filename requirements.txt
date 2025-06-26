@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+Jinja2
+pandas
+numpy
+python-docx
+openpyxl
