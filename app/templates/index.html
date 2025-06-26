@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload de Arquivos</title>
+</head>
+<body>
+    <h1>Processar Arquivos</h1>
+    <form action="/process" method="post" enctype="multipart/form-data">
+        <div>
+            <label>CSVs Matera:</label>
+            <input type="file" name="matera_files" multiple required>
+        </div>
+        <div>
+            <label>Excel Dock:</label>
+            <input type="file" name="dock_files" multiple required>
+        </div>
+        <div>
+            <label>Relatório Contas e Cartões (de para):</label>
+            <input type="file" name="depara_file" required>
+        </div>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
